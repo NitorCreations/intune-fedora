@@ -12,7 +12,7 @@ cd tmp
 echo "Extracting rpms from image..."
 podman image save $ID | tar xf - --wildcards '*.tar'
 for i in */layer.tar; do
-  tar xvf $i --wildcards '*.rpm' || true
+  tar xvf $i --wildcards '*.rpm' 2> /dev/null || true
 done
 
 mv *.rpm ..
@@ -22,6 +22,7 @@ rm -rf tmp
 ## anyone can figure out how to fix curl dependency inside inttune-portal.rpm?
 # nothing provides libcurl.so.4(CURL_OPENSSL_4)(64bit) needed by intune-portal
 
+echo
 echo "Install packages using:"
 echo
 echo "sudo rpm -Uvh --nodeps " intune-portal-*.rpm
