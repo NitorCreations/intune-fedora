@@ -4,9 +4,10 @@ Usage: `./build.sh`
 
 # Enrolling
 
-You might need to run:
-`systemctl --user enable intune-agent.timer` as normal user.
+You need to run:
 `sudo systemctl enable --now microsoft-identity-device-broker`
+`systemctl --user enable --now microsoft-identity-broker`
+`systemctl --user enable --now intune-agent.timer`
 
 Follow official insructions: https://learn.microsoft.com/en-us/mem/intune/user-help/enroll-device-linux
 
