@@ -12,9 +12,11 @@ Reboot. intune needs some dbus and other services to be running since the start 
 
 # Enrolling
 
-Run `/opt/microsoft/intune/bin/intune-portal`
-
 Follow official insructions: https://learn.microsoft.com/en-us/mem/intune/user-help/enroll-device-linux
+
+I think it means that you install Microsoft Edge, login there as your nitor.com user and then start the agent.
+
+Run `/opt/microsoft/intune/bin/intune-portal`
 
 # Details
 
