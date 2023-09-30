@@ -23,8 +23,6 @@ rm -rf tmp
 # nothing provides libcurl.so.4(CURL_OPENSSL_4)(64bit) needed by intune-portal
 
 echo
-echo "Install packages using:"
+echo "Install packages by running:"
 echo
-echo "sudo rpm -Uvh --nodeps " intune-portal-*.rpm
-echo "sudo dnf install " msalsdk-dbusclient*.rpm microsoft-identity-broker-*.rpm
-
+echo "./install.sh"
