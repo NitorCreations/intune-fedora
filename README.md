@@ -2,6 +2,8 @@
 
 ## Build
 
+Requires `podman` or `docker` to be installed.
+
 ```bash
 ./build.sh
 ```
