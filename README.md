@@ -28,6 +28,8 @@ Follow the instructions. Requires logging in with your Nitor AD credentials and 
 
 If it says at the end that the devide is not comliant, check the details, it may be that you just need to wait for a while and refresh the status.
 
+It may take up to 4 hours for your device to appear in Iron Bank user interface, as the data is synchronized every 4 hours.
+
 ### Details
 
 Official insructions: <https://learn.microsoft.com/en-us/mem/intune/user-help/enroll-device-linux>
