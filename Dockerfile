@@ -1,7 +1,7 @@
-FROM fedora:38
+FROM fedora:39
 
 ARG UBUNTU_VER=22.04
-ARG INTUNE_VER=1.2307.12
+ARG INTUNE_VER=1.2312.35
 ARG DBUSCLIENT_VER=1.0.1
 ARG IDENTITY_VER=1.6.1
 
@@ -10,9 +10,10 @@ RUN dnf install -y alien
 RUN curl \
   -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/m/msalsdk-dbusclient/msalsdk-dbusclient_${DBUSCLIENT_VER}_amd64.deb \
   -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/m/microsoft-identity-broker/microsoft-identity-broker_${IDENTITY_VER}_amd64.deb \
-  -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/i/intune-portal/intune-portal_${INTUNE_VER}_amd64.deb
+  -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/i/intune-portal/intune-portal_${INTUNE_VER}-jammy_amd64.deb
 
-RUN alien --to-rpm -g intune-portal_${INTUNE_VER}_amd64.deb
+RUN ls -1 *.deb
+RUN alien --to-rpm -g intune-portal_${INTUNE_VER}*_amd64.deb
 
 RUN cd intune-portal-$INTUNE_VER \
   && mkdir usr/lib64 \
