@@ -48,6 +48,3 @@ YMMV
 * launching Microsoft Intune from the desktop shortcut does nothing
   * make sure you aren't missing any packages needed to run the application
   * run it from the terminal for any tips on what they might be: `/opt/microsoft/intune/bin/intune-portal`
-
-* After login attempt, the user is prompted by Intune to "Get the app". After accepting, authorization is not sent back to the Company Portal app. Blank page.
-  * unsolved
