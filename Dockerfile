@@ -1,9 +1,9 @@
-FROM fedora:39
+FROM fedora:40
 
 ARG UBUNTU_VER=22.04
-ARG INTUNE_VER=1.2312.35
+ARG INTUNE_VER=1.2401.21
 ARG DBUSCLIENT_VER=1.0.1
-ARG IDENTITY_VER=1.6.1
+ARG IDENTITY_VER=1.7.0
 
 RUN dnf install -y alien
 
@@ -25,7 +25,7 @@ RUN alien --to-rpm -g microsoft-identity-broker_${IDENTITY_VER}_amd64.deb
 
 RUN cd microsoft-identity-broker-$IDENTITY_VER \
   && sed -i 's/-amd64//' usr/lib/systemd/system/microsoft-identity-device-broker.service usr/lib/systemd/user/microsoft-identity-broker.service \
-  && sed -i '/.*JAVA_HOME=.*/a Environment="JAVA_OPTS=-Xmx128m -XX:+UseParallelGC"' usr/lib/systemd/system/microsoft-identity-device-broker.service usr/lib/systemd/user/microsoft-identity-broker.service \
+  && sed -i '/.*JAVA_HOME=.*/a Environment="JAVA_OPTS=-Xmx128m -Xss256k -XX:+UseParallelGC -XX:ParallelGCThreads=1"' usr/lib/systemd/system/microsoft-identity-device-broker.service usr/lib/systemd/user/microsoft-identity-broker.service \
   && sed -i 's#JAVA_HOME=/usr/lib/jvm/java-11-openjdk#JAVA_HOME=/usr/lib/jvm/jre-11-openjdk#' usr/lib/systemd/system/microsoft-identity-device-broker.service usr/lib/systemd/user/microsoft-identity-broker.service \
   && grep -v '^%dir "/\(usr\|usr/share\|usr/share/doc\|usr/lib/tmpfiles.d\|opt\|usr/lib\|lib\\|lib/systemd\|lib/systemd/user\|lib/systemd/system\|usr/share/dbus-1\|usr/share/dbus-1/services\|usr/share/dbus-1/system-services\|usr/share/dbus-1/system.d\|usr/lib/sysusers.d\|usr/local\|usr/local/share\)/"' microsoft-identity-broker-${IDENTITY_VER}*.spec | sed '/Release:.*/a Requires: java-11-openjdk-headless' > new.spec \
   && rpmbuild --buildroot="$PWD" -bb --target x86_64 new.spec
