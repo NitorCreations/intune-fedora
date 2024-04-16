@@ -1,8 +1,7 @@
 #!/bin/bash
 
 sudo dnf install webkit2gtk4.0
-sudo rpm -Uvh --nodeps intune-portal-*.rpm
-sudo dnf install msalsdk-dbusclient*.rpm microsoft-identity-broker-*.rpm
+sudo dnf install intune-portal-*.rpm msalsdk-dbusclient*.rpm microsoft-identity-broker-*.rpm
 
 systemctl --user enable /lib/systemd/user/intune-agent.timer
 
