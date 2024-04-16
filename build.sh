@@ -4,7 +4,17 @@ set -e -o pipefail
 
 
 rm -f *.rpm
-podman build . | tee build.log
+
+if which podman > /dev/null; then
+  PODMAN=podman
+elif which docker > /dev/null; then
+  PODMAN=docker
+else
+  echo "No container runtime found"
+  exit 1
+fi
+
+$PODMAN build . | tee build.log
 
 ID=$(tail -n 1 build.log)
 
@@ -12,7 +22,7 @@ rm -rf tmp && mkdir tmp
 cd tmp
 
 echo "Extracting rpms from image..."
-podman image save $ID | tar xf - --wildcards '*.tar'
+$PODMAN image save $ID | tar xf - --wildcards '*.tar'
 for i in */layer.tar; do
   tar xvf $i --wildcards '*.rpm' 2> /dev/null || true
 done
