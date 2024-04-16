@@ -18,7 +18,7 @@ RUN alien --to-rpm -g intune-portal_${INTUNE_VER}*_amd64.deb
 RUN cd intune-portal-$INTUNE_VER \
   && mkdir usr/lib64 \
   && mv usr/lib/x86_64-linux-gnu/security usr/lib64/ \
-  && grep -v '^%dir "/\(usr\|usr/share\|usr/share/doc\|usr/lib/tmpfiles.d\|opt\|usr/lib\|lib\|usr/lib/x86_64-linux-gnu\|lib/systemd\|lib/systemd/user\|lib/systemd/system\)/"' intune-portal-${INTUNE_VER}*.spec | sed 's#/usr/lib/x86_64-linux-gnu/security#/usr/lib64/security#g' > new.spec \
+  && grep -v '^%dir "/\(usr\|usr/share\|usr/share/doc\|usr/lib/tmpfiles.d\|opt\|usr/lib\|lib\|usr/lib/x86_64-linux-gnu\|lib/systemd\|lib/systemd/user\|lib/systemd/system\)/"' intune-portal-${INTUNE_VER}*.spec | sed -e 's#/usr/lib/x86_64-linux-gnu/security#/usr/lib64/security#g' -e 's#\(%files.*\)#%global __requires_exclude ^libcurl\\.so\\.4.*\n\1#' > new.spec \
   && rpmbuild --buildroot="$PWD" -bb --target x86_64 new.spec
 
 RUN alien --to-rpm -g microsoft-identity-broker_${IDENTITY_VER}_amd64.deb
