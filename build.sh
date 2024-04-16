@@ -3,7 +3,7 @@
 set -e -o pipefail
 
 
-rm *.rpm
+rm -f *.rpm
 podman build . | tee build.log
 
 ID=$(tail -n 1 build.log)
