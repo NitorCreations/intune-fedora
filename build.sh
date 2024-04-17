@@ -2,12 +2,11 @@
 
 set -e -o pipefail
 
-
 rm -f *.rpm
 
-if which podman 2>&1 > /dev/null; then
+if command -v podman; then
   PODMAN=podman
-elif which docker 2>&1 > /dev/null; then
+elif command -v docker; then
   PODMAN=docker
 else
   echo "No container runtime found"
