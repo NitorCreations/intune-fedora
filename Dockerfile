@@ -2,19 +2,21 @@ FROM fedora:41
 
 RUN dnf install -y alien patchelf
 
-ARG UBUNTU_VER=22.04
-ARG INTUNE_VER=1.2405.17
+ARG UBUNTU_VER=24.04
+ARG UBUNTU_NAME=noble
+ARG INTUNE_VER=1.2411.14
 ARG DBUSCLIENT_VER=1.0.1
+ARG DBUSCLIENT_UBUVER=22.04
 ARG IDENTITY_VER=2.0.1
 
-ARG LIBCURL_VER=7.81.0-1ubuntu1.18
+ARG LIBCURL_VER=7.81.0-1ubuntu1.20
 ARG LIBLDAP_VER=2.5.18+dfsg-0ubuntu0.22.04.2
 ARG LIBSASL_VER=2.1.27+dfsg2-3ubuntu1.2
 
 RUN curl \
-  -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/m/msalsdk-dbusclient/msalsdk-dbusclient_${DBUSCLIENT_VER}_amd64.deb \
-  -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/m/microsoft-identity-broker/microsoft-identity-broker_${IDENTITY_VER}_amd64.deb \
-  -O https://packages.microsoft.com/ubuntu/$UBUNTU_VER/prod/pool/main/i/intune-portal/intune-portal_${INTUNE_VER}-jammy_amd64.deb \
+  -O https://packages.microsoft.com/ubuntu/${DBUSCLIENT_UBUVER}/prod/pool/main/m/msalsdk-dbusclient/msalsdk-dbusclient_${DBUSCLIENT_VER}_amd64.deb \
+  -O https://packages.microsoft.com/ubuntu/${UBUNTU_VER}/prod/pool/main/m/microsoft-identity-broker/microsoft-identity-broker_${IDENTITY_VER}_amd64.deb \
+  -O https://packages.microsoft.com/ubuntu/${UBUNTU_VER}/prod/pool/main/i/intune-portal/intune-portal_${INTUNE_VER}-${UBUNTU_NAME}_amd64.deb \
   -O http://archive.ubuntu.com/ubuntu/pool/main/c/curl/libcurl4_${LIBCURL_VER}_amd64.deb \
   -O http://archive.ubuntu.com/ubuntu/pool/main/o/openldap/libldap-2.5-0_${LIBLDAP_VER}_amd64.deb \
   -O http://archive.ubuntu.com/ubuntu/pool/main/c/cyrus-sasl2/libsasl2-2_${LIBSASL_VER}_amd64.deb
